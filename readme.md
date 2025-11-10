@@ -33,10 +33,12 @@ non jokalariek ikus dezaketen nor dagoen Latxa baino jakintsuago.
 ---
 
 ## 📁 Edukia
+```
 📦 LatxaTrivia
-├── latxa_trivia.py # Aplikazioaren kode nagusia (Gradio interfazea)
-├── style.css # Itxura pertsonalizatzeko estilo-fitxategia
-└── latxatrivia.png # Aplikazioaren logoa
+├── latxa_trivia.py   # Aplikazioaren kode nagusia (Gradio interfazea)
+├── style.css          # Itxura pertsonalizatzeko estilo-fitxategia
+└── latxatrivia.png    # Aplikazioaren logoa
+```
 
 ---
 
@@ -48,5 +50,6 @@ Erabiltzeko:
 python latxa_trivia.py
 ```
 Ondoren, zure nabigatzailean jokoaren interfazea irekiko da.
+
 
 
