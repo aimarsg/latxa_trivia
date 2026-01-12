@@ -457,7 +457,16 @@ def compute_leaderboard_tables(rows: List[Dict]) -> Tuple[List[List], List[List]
     - Ranking acumulado por usuario (jugadas, victorias_usuario, victorias_modelo, empates, mejor_puntuación)
     """
     # Top recientes por user_score desc, timestamp desc
-    recent = sorted(rows, key=lambda x: (x.get("user_score", 0), x.get("timestamp", 0)), reverse=True)[:25]
+    all_sorted = sorted(rows, key=lambda x: (x.get("user_score", 0), x.get("timestamp", 0)), reverse=True)
+    recent = []
+    seen_users = set()
+    for r in all_sorted:
+        username = r.get("username", "")
+        if username not in seen_users:
+            recent.append(r)
+            seen_users.add(username)
+        if len(recent) >= 25:
+            break
     top_table = [["Erabiltzailea", "Erabiltzaileak asmatutakoak", "Latxak asmatutakoak", "Galderak guztira", "Data"]]
     for r in recent:
         ts = time.strftime("%Y-%m-%d %H:%M", time.localtime(r.get("timestamp", 0)))
@@ -489,7 +498,7 @@ def compute_leaderboard_tables(rows: List[Dict]) -> Tuple[List[List], List[List]
 
     agg_rows = sorted(agg.items(), key=lambda kv: (kv[1]["user_wins"], kv[1]["best"]), reverse=True)
     rank_table = [["Erabiltzailea", "Jokatutako partidak", "Erabiltzailearen garaipenak", "Latxaren garaipenak", "Berdinketa", "Puntuazio hoberena"]]
-    for user, d in agg_rows[:25]:
+    for user, d in agg_rows[:250]:
         rank_table.append([
             user, d["plays"], d["user_wins"], d["model_wins"], d["draws"], d["best"]
         ])
